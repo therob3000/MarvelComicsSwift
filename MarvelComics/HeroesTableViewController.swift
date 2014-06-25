@@ -9,6 +9,10 @@
 import UIKit
 import QuartzCore
 
+let heroListParalaxRatio:CGFloat = 10.0
+let heroListSelectionScaleFactor:CGFloat = 0.95
+let heroListSelectionAnimationDuration:NSTimeInterval = 0.3
+
 class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     
     var heroes:Hero[]? = nil
@@ -107,20 +111,15 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
             })
     }
     
-    func _pageHeight() -> CGFloat {
-        return (self.tableView.frame.height - UIApplication.sharedApplication().statusBarFrame.size.height - self.navigationController.navigationBar.frame.size.height - 44) / 2 // 44 - search bar frame
-    }
-    
     //table view delegate
     
     override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
         var cell : UITableViewCell! = tableView.cellForRowAtIndexPath(indexPath)
-        var engle : Float = 3.14 / 8
         tableView.deselectRowAtIndexPath(self.previousIndexPath?, animated: true)
         self.previousIndexPath = indexPath
-        UIView.animateWithDuration(0.3, animations: {
-            cell.transform = CGAffineTransformMakeScale(0.95, 0.95)
+        UIView.animateWithDuration(heroListSelectionAnimationDuration, animations: {
+            cell.transform = CGAffineTransformMakeScale(heroListSelectionScaleFactor, heroListSelectionScaleFactor)
             }
             , completion: { (succes:Bool) in
                 let viewController:UIViewController? = UIStoryboard.viewControllerWith("HeroDetailsViewController");
@@ -131,20 +130,12 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!){
         
         var heroCell:HeroListCell = cell as HeroListCell
-        heroCell.shouldParalax = true
         
         if self.scrollDirection {
-            heroCell.scrollView.contentOffset.y = -30
+            heroCell.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
         }else{
-            heroCell.scrollView.contentOffset.y = 30
+            heroCell.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
         }
-        
-    }
-    
-    override func tableView(tableView: UITableView!, didEndDisplayingCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!){
-        
-        var heroCell:HeroListCell = cell as HeroListCell
-        heroCell.shouldParalax = false
         
     }
     
@@ -152,10 +143,8 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func scrollViewDidScroll(scrollView: UIScrollView!){
         
-        
-        
         let contentOffset = fabsf(scrollView.contentOffset.y)
-        let delta = fabsf(self.previouseOffSetY - contentOffset) / 10
+        let delta = fabsf(self.previouseOffSetY - contentOffset) / heroListParalaxRatio
         
         self.previouseOffSetY = contentOffset
         self.scrollDirection = scrollView.contentOffset.y > 0

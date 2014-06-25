@@ -11,7 +11,7 @@ import Foundation
 extension UIStoryboard {
     
     class func mainStoryBoard () -> UIStoryboard? {
-        return UIStoryboard(name: "Main", bundle: nil)
+        return UIStoryboard(name: "Storyboard", bundle: nil)
     }
     
     class func viewControllerWith(name:String!) -> UIViewController? {

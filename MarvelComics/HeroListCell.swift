@@ -8,7 +8,7 @@
 
 import UIKit
 
-let constraintConstant:CGFloat = 8
+let heroListCellMaxParalaxOffset:CGFloat = 30.0
 
 class HeroListCell: UITableViewCell {
     
@@ -18,20 +18,15 @@ class HeroListCell: UITableViewCell {
     @IBOutlet var heroNameLabel: UILabel
     @IBOutlet var scrollView: UIScrollView
     
-              var shouldParalax: Bool = true
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.shouldParalax = true
-        //self.scrollView.contentOffset.y = 50
         self._createBlurView()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.heroNameLabel.text  = ""
-        //self.scrollView.contentOffset.y = 50
-        self.shouldParalax = true
+        self.heroImageView.image = UIImage(named: "hero_placeholder")
     }
     
 }
@@ -69,14 +64,14 @@ extension HeroListCell {
     func paralaxScrollingForDeleta(delta:CGFloat, scrollDirection:Bool){
         
         if scrollDirection {
-            if self.scrollView.contentOffset.y + delta > 30 {
-                self.scrollView.contentOffset.y = 30
+            if self.scrollView.contentOffset.y + delta > heroListCellMaxParalaxOffset {
+                self.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
             } else {
                 self.scrollView.contentOffset.y += delta
             }
         } else {
-            if self.scrollView.contentOffset.y - delta < -30 {
-                self.scrollView.contentOffset.y = -30
+            if self.scrollView.contentOffset.y - delta < -heroListCellMaxParalaxOffset {
+                self.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
             } else {
                 self.scrollView.contentOffset.y -= delta
             }
