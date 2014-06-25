@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-let heroListParalaxRatio:CGFloat = 10.0
+let heroListParalaxRatio:CGFloat = 10
 let heroListSelectionScaleFactor:CGFloat = 0.95
 let heroListSelectionAnimationDuration:NSTimeInterval = 0.3
 
@@ -132,9 +132,9 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
         var heroCell:HeroListCell = cell as HeroListCell
         
         if self.scrollDirection {
-            heroCell.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
+            heroCell.scrollView.contentOffset.y = 0
         }else{
-            heroCell.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
+            heroCell.scrollView.contentOffset.y = 0
         }
         
     }
@@ -143,17 +143,17 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func scrollViewDidScroll(scrollView: UIScrollView!){
         
-        let contentOffset = fabsf(scrollView.contentOffset.y)
-        let delta = fabsf(self.previouseOffSetY - contentOffset) / heroListParalaxRatio
+        let contentOffset = scrollView.contentOffset.y
+        let delta = (self.previouseOffSetY - contentOffset) / heroListParalaxRatio
         
         self.previouseOffSetY = contentOffset
-        self.scrollDirection = scrollView.contentOffset.y > 0
+        self.scrollDirection = delta > 0
         
         if self.didAppear {
             for cell : AnyObject in self.tableView.visibleCells() {
                 let heroCell:HeroListCell = cell as HeroListCell
                 
-                heroCell.paralaxScrollingForDeleta(CGFloat(delta), scrollDirection: self.scrollDirection)
+                heroCell.paralaxScrollingForDeleta(fabsf(CGFloat(delta)), scrollDirection: self.scrollDirection)
             }
         }
     

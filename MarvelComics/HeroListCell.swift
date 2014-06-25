@@ -8,7 +8,7 @@
 
 import UIKit
 
-let heroListCellMaxParalaxOffset:CGFloat = 30.0
+let heroListCellMaxParalaxOffset:CGFloat = 25.0
 
 class HeroListCell: UITableViewCell {
     
