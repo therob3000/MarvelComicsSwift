@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dYu-Kb-Fdb">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+    </dependencies>
+    <scenes>
+        <!--Heroes Table View Controller - Marvel Heroes-->
+        <scene sceneID="y9z-4D-sfn">
+            <objects>
+                <tableViewController storyboardIdentifier="HeroesTableViewController" id="56I-Gv-R4A" customClass="HeroesTableViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="139" sectionHeaderHeight="22" sectionFooterHeight="22" id="Fe5-Qi-lYM">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="3L8-s4-L8j">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="56I-Gv-R4A" id="g0q-OC-OgS"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeroListCell" rowHeight="150" id="Gi7-HV-YDM" customClass="HeroListCell" customModule="MarvelComics" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gi7-HV-YDM" id="syx-ms-bMf">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Plc-Fq-riY">
+                                            <rect key="frame" x="10" y="0.0" width="460" height="150"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h5B-M7-Ec4">
+                                                    <rect key="frame" x="0.0" y="-25" width="460" height="200"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="h5B-M7-Ec4" secondAttribute="centerY" id="18S-hy-G6I"/>
+                                                <constraint firstItem="h5B-M7-Ec4" firstAttribute="top" secondItem="Plc-Fq-riY" secondAttribute="top" constant="-25" id="20h-tN-609"/>
+                                                <constraint firstItem="h5B-M7-Ec4" firstAttribute="leading" secondItem="Plc-Fq-riY" secondAttribute="leading" id="3Le-pS-fNA"/>
+                                                <constraint firstAttribute="trailing" secondItem="h5B-M7-Ec4" secondAttribute="trailing" id="4HP-si-7uN"/>
+                                                <constraint firstAttribute="centerX" secondItem="h5B-M7-Ec4" secondAttribute="centerX" id="Wn2-zk-YCS"/>
+                                                <constraint firstAttribute="bottom" secondItem="h5B-M7-Ec4" secondAttribute="bottom" constant="-25" id="dNa-cf-QCG"/>
+                                            </constraints>
+                                        </scrollView>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hiz-cf-aGr">
+                                            <rect key="frame" x="10" y="120" width="460" height="30"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YYk-Ot-XPW">
+                                                    <rect key="frame" x="0.0" y="4" width="460" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="460" id="7yj-By-sEE"/>
+                                                        <constraint firstAttribute="height" constant="21" id="fOo-NR-zMO"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Resagokr" family="Resagokr" pointSize="21"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="YYk-Ot-XPW" secondAttribute="centerY" constant="0.5" id="Wys-sT-pTm"/>
+                                                <constraint firstAttribute="centerX" secondItem="YYk-Ot-XPW" secondAttribute="centerX" id="weD-wf-7dO"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="Plc-Fq-riY" firstAttribute="top" secondItem="syx-ms-bMf" secondAttribute="top" id="3jg-WE-J4X"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hiz-cf-aGr" secondAttribute="trailing" constant="10" id="4Gs-RN-dVC"/>
+                                        <constraint firstAttribute="centerX" secondItem="Plc-Fq-riY" secondAttribute="centerX" id="CdM-lo-6bX"/>
+                                        <constraint firstAttribute="bottom" secondItem="Hiz-cf-aGr" secondAttribute="bottom" id="Vq5-AF-KF6"/>
+                                        <constraint firstItem="Hiz-cf-aGr" firstAttribute="leading" secondItem="syx-ms-bMf" secondAttribute="leading" constant="10" id="at7-eE-OWa"/>
+                                        <constraint firstItem="Plc-Fq-riY" firstAttribute="leading" secondItem="syx-ms-bMf" secondAttribute="leading" constant="10" id="jeK-X5-wgJ"/>
+                                        <constraint firstItem="Hiz-cf-aGr" firstAttribute="top" secondItem="syx-ms-bMf" secondAttribute="top" constant="120" id="kTS-q0-oMo"/>
+                                        <constraint firstAttribute="centerY" secondItem="Plc-Fq-riY" secondAttribute="centerY" id="pMg-H3-TO2"/>
+                                        <constraint firstAttribute="trailing" secondItem="Plc-Fq-riY" secondAttribute="trailing" constant="10" id="swd-9p-8A2"/>
+                                        <constraint firstAttribute="bottom" secondItem="Plc-Fq-riY" secondAttribute="bottom" id="tOh-ck-YRF"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="blurConteinerView" destination="Hiz-cf-aGr" id="DAA-ZM-ctM"/>
+                                    <outlet property="heroImageView" destination="h5B-M7-Ec4" id="aFi-yq-qsz"/>
+                                    <outlet property="heroNameLabel" destination="YYk-Ot-XPW" id="BUE-2h-jcC"/>
+                                    <outlet property="scrollView" destination="Plc-Fq-riY" id="MMT-C9-Xjd"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="56I-Gv-R4A" id="ZnH-5L-hqC"/>
+                            <outlet property="delegate" destination="56I-Gv-R4A" id="Q4Z-Pn-r8g"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Marvel Heroes" id="ebC-88-dVa"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ayz-ZS-crL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2480" y="337"/>
+        </scene>
+        <!--Hero Details View Controller-->
+        <scene sceneID="rO6-qd-2Cy">
+            <objects>
+                <viewController storyboardIdentifier="HeroDetailsViewController" id="tBq-qo-m2S" customClass="HeroDetailsViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9zu-Id-Xjf"/>
+                        <viewControllerLayoutGuide type="bottom" id="PqW-Dp-CNW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6ZX-xs-OCq">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Oz-FI-Mt2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3033" y="337"/>
+        </scene>
+        <!--Hero List Root View Controller - Marvel Heroes-->
+        <scene sceneID="Uqd-LO-VOG">
+            <objects>
+                <viewController storyboardIdentifier="HeroListRootViewController" id="zMw-zY-Al4" customClass="HeroListRootViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QQ3-xb-aBQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="LIT-cZ-QkD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4vD-pl-bsb">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="capitan_america_big" translatesAutoresizingMaskIntoConstraints="NO" id="2ba-ec-Yqc">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T7H-wk-PSV">
+                                <rect key="frame" x="0.0" y="64" width="480" height="416"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="56I-Gv-R4A" kind="embed" id="deV-x6-Mc2"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="T7H-wk-PSV" firstAttribute="top" secondItem="QQ3-xb-aBQ" secondAttribute="bottom" id="3PM-SA-PhV"/>
+                            <constraint firstItem="LIT-cZ-QkD" firstAttribute="top" secondItem="T7H-wk-PSV" secondAttribute="bottom" id="4el-gv-MUC"/>
+                            <constraint firstAttribute="trailing" secondItem="T7H-wk-PSV" secondAttribute="trailing" id="ESr-Ga-eCJ"/>
+                            <constraint firstItem="LIT-cZ-QkD" firstAttribute="top" secondItem="2ba-ec-Yqc" secondAttribute="bottom" id="Hki-Xn-tgY"/>
+                            <constraint firstItem="2ba-ec-Yqc" firstAttribute="top" secondItem="QQ3-xb-aBQ" secondAttribute="bottom" constant="-64" id="pau-uG-0hW"/>
+                            <constraint firstAttribute="trailing" secondItem="2ba-ec-Yqc" secondAttribute="trailing" id="sPl-uW-gYD"/>
+                            <constraint firstItem="2ba-ec-Yqc" firstAttribute="leading" secondItem="4vD-pl-bsb" secondAttribute="leading" id="uOg-Hl-OtK"/>
+                            <constraint firstItem="T7H-wk-PSV" firstAttribute="leading" secondItem="4vD-pl-bsb" secondAttribute="leading" id="yyQ-91-fDR"/>
+                        </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Marvel Heroes" id="ITH-Ac-JWS">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="FuZ-sQ-B6l">
+                            <connections>
+                                <action selector="listButtonPressed:" destination="zMw-zY-Al4" id="zi9-Xm-yXZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="2ba-ec-Yqc" id="r2F-be-ddM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2eg-P9-Ll6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1885" y="337"/>
+        </scene>
+        <!--Slide View Controller-->
+        <scene sceneID="hlm-Cd-EA2">
+            <objects>
+                <viewController id="dYu-Kb-Fdb" customClass="SlideViewController" customModule="MarvelComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ahd-YT-kK8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z6W-Di-ySO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DYf-Jd-djK">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mur-mr-OJp">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dYu-Kb-Fdb" id="gdy-IU-kI7"/>
+                                </connections>
+                            </tableView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05N-fo-AED">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                                <connections>
+                                    <segue destination="Scc-k0-svk" kind="embed" id="tqo-W0-tKi"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="05N-fo-AED" firstAttribute="top" secondItem="ahd-YT-kK8" secondAttribute="bottom" constant="-20" id="4VF-sx-Opa"/>
+                            <constraint firstAttribute="trailing" secondItem="05N-fo-AED" secondAttribute="trailing" id="6gC-2B-vSj"/>
+                            <constraint firstItem="Z6W-Di-ySO" firstAttribute="top" secondItem="Mur-mr-OJp" secondAttribute="bottom" id="OXH-Gh-eKE"/>
+                            <constraint firstItem="05N-fo-AED" firstAttribute="leading" secondItem="DYf-Jd-djK" secondAttribute="leading" id="UFW-lF-LXx"/>
+                            <constraint firstItem="Mur-mr-OJp" firstAttribute="top" secondItem="ahd-YT-kK8" secondAttribute="bottom" constant="-20" id="hSl-Ii-h2M"/>
+                            <constraint firstItem="Z6W-Di-ySO" firstAttribute="top" secondItem="05N-fo-AED" secondAttribute="bottom" id="whg-sy-6Qo"/>
+                            <constraint firstItem="Mur-mr-OJp" firstAttribute="leading" secondItem="DYf-Jd-djK" secondAttribute="leading" id="y5a-WO-Edu"/>
+                            <constraint firstAttribute="trailing" secondItem="Mur-mr-OJp" secondAttribute="trailing" id="zZt-jg-hrg"/>
+                        </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="05N-fo-AED" id="1xe-QN-5Nu"/>
+                        <outlet property="tableView" destination="Mur-mr-OJp" id="Lu7-RT-CJv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sr3-vI-qql" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="537" y="337"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vWn-oq-ue1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Scc-k0-svk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3RM-if-kcF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zMw-zY-Al4" kind="relationship" relationship="rootViewController" id="lms-7g-dyl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QAX-en-Vxb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1121" y="337"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="capitan_america_big" width="640" height="960"/>
+    </resources>
+</document>
