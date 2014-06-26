@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-let heroListParalaxRatio:CGFloat = 10
+let heroListParalaxRatio:CGFloat = 8
 let heroListSelectionScaleFactor:CGFloat = 0.95
 let heroListSelectionAnimationDuration:NSTimeInterval = 0.3
 
@@ -132,9 +132,9 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
         var heroCell:HeroListCell = cell as HeroListCell
         
         if self.scrollDirection {
-            heroCell.scrollView.contentOffset.y = 0
+            heroCell.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
         }else{
-            heroCell.scrollView.contentOffset.y = 0
+            heroCell.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
         }
         
     }

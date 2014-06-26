@@ -8,7 +8,7 @@
 
 import UIKit
 
-let heroListCellMaxParalaxOffset:CGFloat = 25.0
+let heroListCellMaxParalaxOffset:CGFloat = 50.0
 
 class HeroListCell: UITableViewCell {
     
@@ -20,6 +20,8 @@ class HeroListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.scrollView.scrollsToTop = false
         self._createBlurView()
     }
     
@@ -43,17 +45,15 @@ extension HeroListCell {
     func setHeroImageWith(thumbnail:Thumbnail?){
         
         if thumbnail{
-            var stringUrl:String      = thumbnail!.path + "/landscape_incredible." + thumbnail!.imageExtension;
+            var stringUrl:String      = thumbnail!.path + "/standard_xlarge." + thumbnail!.imageExtension;
             var url:NSURL             = NSURL(string: stringUrl)
             var request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
             
             request.addValue("image/*", forHTTPHeaderField: "Accept")
             
-            weak var weakSelf :HeroListCell! = self
-            
             self.heroImageView.setImageWithURLRequest(request, placeholderImage: nil,
-                success: {(request: NSURLRequest!,response: NSHTTPURLResponse!,image: UIImage!) in
-                    weakSelf.heroImageView!.image = image
+                success: {[weak self] (request: NSURLRequest!,response: NSHTTPURLResponse!,image: UIImage!)  in
+                    self!.heroImageView!.image = image
                 },
                 failure:nil)
         }else{
