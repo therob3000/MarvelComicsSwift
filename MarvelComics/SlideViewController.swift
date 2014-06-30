@@ -14,28 +14,59 @@ class SlideViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet var containerView: UIView
     @IBOutlet var tableView: UITableView
-    
-    
+
     var didSlided:Bool = false
+    var initialPosition:CGFloat = 0
+    var gesureRecongniser:UIPanGestureRecognizer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self._registrNotifications()
+        self._registrGestureRecognizer()
         self.tableView.contentInset = UIEdgeInsetsMake((self.view.frame.size.height - 400) / 2, 0, 0, 0)
     }
     
     //Private
     
-    func _registrNotifications(){
+    func _registrNotifications() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("shouldSlide"), name: SlideViewControllerShouldSlideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("slide"), name: SlideViewControllerShouldSlideNotification, object: nil)
         
     }
     
+    func _registrGestureRecognizer() {
+        self.gesureRecongniser = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+        
+        self.containerView.addGestureRecognizer(self.gesureRecongniser)
+    }
+    
+    func handlePan(sender:UIPanGestureRecognizer) {
+        
+        let velocity:CGPoint = sender.velocityInView(self.view)
+        
+        if ( sender.state == UIGestureRecognizerState.Began ) {
+            
+            self.initialPosition = sender.locationInView(self.view).x
+            
+        } else if ( sender.state == UIGestureRecognizerState.Changed ) {
+            
+            self.slideForTouchPosition(sender.locationInView(self.view), velocity: sender.velocityInView(self.containerView))
+            
+        } else if ( sender.state == UIGestureRecognizerState.Ended ) {
+            if velocity.x > 0 {
+                self.slideOut()
+            } else if (!self.didSlided){
+                self.slideBack()
+            }
+        }
+        
+    }
+    
+    
     //sliding methods
     
-    func shouldSlide() {
+    func slide() {
         
         if self.didSlided {
             self.slideBack()
@@ -45,14 +76,33 @@ class SlideViewController: UIViewController, UITableViewDataSource {
         
     }
     
+    func slideForTouchPosition(touchPosition:CGPoint, velocity:CGPoint) {
+
+        if velocity.x > 0 {
+            self.containerView.center.x += touchPosition.x - self.initialPosition
+        } else {
+            self.didSlided = false
+            
+            if ((self.containerView.frame.origin.x - self.initialPosition + touchPosition.x) < 5) { // to not show right edge
+                return;
+            }
+            
+            self.containerView.center.x -= self.initialPosition - touchPosition.x
+            println("Origin = \(NSStringFromCGPoint(self.containerView.frame.origin))")
+        }
+        
+        let scaleFactor:CGFloat = (self.view.frame.width * 2 - self.containerView.frame.origin.x) / (self.view.frame.width * 2)
+        self.containerView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        self.initialPosition = touchPosition.x
+    }
+    
     func slideOut() {
         UIView.animateWithDuration(0.3, animations: {
             
             self.didSlided = true
             
             self.containerView.transform = CGAffineTransformMakeScale(0.5, 0.5)
-            self.containerView.center = CGPointMake(self.view.center.x + self.view.frame.size.width / 2
-                , self.view.center.y)
+            self.containerView.center.x = self.view.center.x + self.view.frame.size.width * 0.6
             
             })
     }
@@ -61,6 +111,7 @@ class SlideViewController: UIViewController, UITableViewDataSource {
         
         self.didSlided = false
         
+
         UIView.animateWithDuration(0.3, animations: {
             
             self.containerView.transform = CGAffineTransformMakeScale(1, 1)

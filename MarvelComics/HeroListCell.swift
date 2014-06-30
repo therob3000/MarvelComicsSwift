@@ -39,7 +39,6 @@ extension HeroListCell {
     func configCellWith(hero:Hero!){
         self.setHeroImageWith(hero.thumbnail?)
         self.heroNameLabel.text = hero.name
-        println("Offset = \(NSStringFromCGPoint(self.scrollView.contentOffset))")
     }
     
     func setHeroImageWith(thumbnail:Thumbnail?){
@@ -76,8 +75,6 @@ extension HeroListCell {
                 self.scrollView.contentOffset.y -= delta
             }
         }
-        
-        println("Image offset = \(NSStringFromCGPoint(scrollView.contentOffset))")
 
     }
     
