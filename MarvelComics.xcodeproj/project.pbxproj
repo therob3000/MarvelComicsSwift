@@ -13,6 +13,7 @@
 		212C120C194B233900967B9F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212C120B194B233900967B9F /* QuartzCore.framework */; };
 		212C120F194B454A00967B9F /* HeroDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C120E194B454A00967B9F /* HeroDetailsViewController.swift */; };
 		2144C9BD19522604002CFB8B /* HeroListRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2144C9BC19522604002CFB8B /* HeroListRootViewController.swift */; };
+		216208C4196ABC9A006C8916 /* HeroListTableBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216208C3196ABC9A006C8916 /* HeroListTableBehaviour.swift */; };
 		216CF85D1944E75D00E92CF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CF85C1944E75D00E92CF2 /* AppDelegate.swift */; };
 		216CF8601944E75D00E92CF2 /* MarvelComics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 216CF85E1944E75D00E92CF2 /* MarvelComics.xcdatamodeld */; };
 		216CF8671944E75D00E92CF2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 216CF8661944E75D00E92CF2 /* Images.xcassets */; };
@@ -52,6 +53,7 @@
 		212C120B194B233900967B9F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		212C120E194B454A00967B9F /* HeroDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsViewController.swift; sourceTree = "<group>"; };
 		2144C9BC19522604002CFB8B /* HeroListRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListRootViewController.swift; sourceTree = "<group>"; };
+		216208C3196ABC9A006C8916 /* HeroListTableBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListTableBehaviour.swift; sourceTree = "<group>"; };
 		216CF8571944E75D00E92CF2 /* MarvelComics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelComics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		216CF85B1944E75D00E92CF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		216CF85C1944E75D00E92CF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 				212C120E194B454A00967B9F /* HeroDetailsViewController.swift */,
 			);
 			name = HeroDetails;
+			sourceTree = "<group>";
+		};
+		216208C0196AB635006C8916 /* Behaviours */ = {
+			isa = PBXGroup;
+			children = (
+				216208C3196ABC9A006C8916 /* HeroListTableBehaviour.swift */,
+			);
+			name = Behaviours;
 			sourceTree = "<group>";
 		};
 		216CF84E1944E75D00E92CF2 = {
@@ -236,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				21DBE9D2194841E2001E0CA2 /* HeroesTableViewController.swift */,
+				216208C0196AB635006C8916 /* Behaviours */,
 				21DBE9D619484ED4001E0CA2 /* HeroListCell.swift */,
 				2144C9BC19522604002CFB8B /* HeroListRootViewController.swift */,
 			);
@@ -424,6 +435,7 @@
 				21DBE9DD19485E06001E0CA2 /* Hero.m in Sources */,
 				21EA3785194CB86700AFDAC0 /* LoadingView.swift in Sources */,
 				216CF88A1944F7CD00E92CF2 /* HTTPRequesManager.swift in Sources */,
+				216208C4196ABC9A006C8916 /* HeroListTableBehaviour.swift in Sources */,
 				21D3CC26194F6B9A00DA2E5D /* UIViewController+Loader.swift in Sources */,
 				212C120F194B454A00967B9F /* HeroDetailsViewController.swift in Sources */,
 				2144C9BD19522604002CFB8B /* HeroListRootViewController.swift in Sources */,

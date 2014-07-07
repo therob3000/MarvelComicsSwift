@@ -89,10 +89,6 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="56I-Gv-R4A" id="ZnH-5L-hqC"/>
-                            <outlet property="delegate" destination="56I-Gv-R4A" id="Q4Z-Pn-r8g"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Marvel Heroes" id="ebC-88-dVa"/>
                 </tableViewController>

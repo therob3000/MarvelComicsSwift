@@ -22,40 +22,30 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     var isSearching:Bool = false
     var searchString:String? = nil
     var loadingView:UIVisualEffectView? = nil
-    var previouseOffSetY:CGFloat = 0
-    var didAppear:Bool = false
-    var scrollDirection:Bool = true
+    var tableBehaviour:HeroListTableBehaviour? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         self._setupDataSource()
+        self._setupTableBehaviour()
         self._loadDataForOffset("0", searchString: nil)
         self._setupRefreshControll()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        var cell:UITableViewCell? = self.tableView.cellForRowAtIndexPath(self.previousIndexPath)
-        
-        if cell {
-            var engle : Float = 0
-            UIView.animateWithDuration(0.3, animations: {
-                cell!.transform = CGAffineTransformMakeScale(1, 1)
-                })
-        }
+        self.tableBehaviour!.deselectCell()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.didAppear = true
+        self.tableBehaviour!.shouldParalax = true
     }
     
     func loadData(){
         self.refreshControl.beginRefreshing()
-        self.tableView.exchangeSubviewAtIndex(0, withSubviewAtIndex: 1)
         self._loadDataForOffset("\(self.arrayDataSource?.items?.count)", searchString: nil)
     }
     
@@ -75,6 +65,10 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
             
             })
         self.tableView.dataSource = self.arrayDataSource
+    }
+    
+    func _setupTableBehaviour(){
+        self.tableBehaviour = HeroListTableBehaviour(targetTableView: self.tableView, targetController: self)
     }
     
     func _updateDataSourceWith(heroes:Hero[]?) {
@@ -109,54 +103,6 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
             }
             
             })
-    }
-    
-    //table view delegate
-    
-    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        
-        var cell : UITableViewCell! = tableView.cellForRowAtIndexPath(indexPath)
-        tableView.deselectRowAtIndexPath(self.previousIndexPath?, animated: true)
-        self.previousIndexPath = indexPath
-        UIView.animateWithDuration(heroListSelectionAnimationDuration, animations: {
-            cell.transform = CGAffineTransformMakeScale(heroListSelectionScaleFactor, heroListSelectionScaleFactor)
-            }
-            , completion: { (succes:Bool) in
-                let viewController:UIViewController? = UIStoryboard.viewControllerWith("HeroDetailsViewController");
-                self.navigationController.pushViewController(viewController, animated: true)
-            })
-    }
-    
-    override func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!){
-        
-        var heroCell:HeroListCell = cell as HeroListCell
-        
-        if self.scrollDirection {
-            heroCell.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
-        }else{
-            heroCell.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
-        }
-        
-    }
-    
-    //UIScrollViewDelegate
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView!){
-        
-        let contentOffset = scrollView.contentOffset.y
-        let delta = (self.previouseOffSetY - contentOffset) / heroListParalaxRatio
-        
-        self.previouseOffSetY = contentOffset
-        self.scrollDirection = delta > 0
-        
-        if self.didAppear {
-            for cell : AnyObject in self.tableView.visibleCells() {
-                let heroCell:HeroListCell = cell as HeroListCell
-                
-                heroCell.paralaxScrollingForDeleta(fabsf(CGFloat(delta)), scrollDirection: self.scrollDirection)
-            }
-        }
-    
     }
     
     //UISearchDisplayDelegate

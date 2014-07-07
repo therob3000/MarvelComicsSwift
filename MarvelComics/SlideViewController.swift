@@ -83,7 +83,7 @@ class SlideViewController: UIViewController, UITableViewDataSource {
         } else {
             self.didSlided = false
             
-            if ((self.containerView.frame.origin.x - self.initialPosition + touchPosition.x) < 5) { // to not show right edge
+            if ((self.containerView.frame.origin.x - self.initialPosition + touchPosition.x) < 0) { // to not show right edge
                 return;
             }
             
