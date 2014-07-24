@@ -10,10 +10,12 @@
 		15B580A4F5DB4BE88A58322C /* libPods-MarvelComics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1397D1D62914C1B90954F57 /* libPods-MarvelComics.a */; };
 		210E80B8194613DB00CBC4EC /* NSString+Marvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E80B7194613DB00CBC4EC /* NSString+Marvel.m */; };
 		210E80BC19461FD600CBC4EC /* Hero+Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E80BB19461FD600CBC4EC /* Hero+Server.swift */; };
+		2111515E1981309A002452F9 /* PaginationBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111515D1981309A002452F9 /* PaginationBehaviour.swift */; };
 		212C120C194B233900967B9F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212C120B194B233900967B9F /* QuartzCore.framework */; };
 		212C120F194B454A00967B9F /* HeroDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C120E194B454A00967B9F /* HeroDetailsViewController.swift */; };
 		2144C9BD19522604002CFB8B /* HeroListRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2144C9BC19522604002CFB8B /* HeroListRootViewController.swift */; };
 		216208C4196ABC9A006C8916 /* HeroListTableBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216208C3196ABC9A006C8916 /* HeroListTableBehaviour.swift */; };
+		216208C6196AE7E8006C8916 /* HeroListSearchBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216208C5196AE7E8006C8916 /* HeroListSearchBehaviour.swift */; };
 		216CF85D1944E75D00E92CF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CF85C1944E75D00E92CF2 /* AppDelegate.swift */; };
 		216CF8601944E75D00E92CF2 /* MarvelComics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 216CF85E1944E75D00E92CF2 /* MarvelComics.xcdatamodeld */; };
 		216CF8671944E75D00E92CF2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 216CF8661944E75D00E92CF2 /* Images.xcassets */; };
@@ -50,10 +52,12 @@
 		210E80B6194613DB00CBC4EC /* NSString+Marvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Marvel.h"; sourceTree = "<group>"; };
 		210E80B7194613DB00CBC4EC /* NSString+Marvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Marvel.m"; sourceTree = "<group>"; };
 		210E80BB19461FD600CBC4EC /* Hero+Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hero+Server.swift"; sourceTree = "<group>"; };
+		2111515D1981309A002452F9 /* PaginationBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationBehaviour.swift; sourceTree = "<group>"; };
 		212C120B194B233900967B9F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		212C120E194B454A00967B9F /* HeroDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsViewController.swift; sourceTree = "<group>"; };
 		2144C9BC19522604002CFB8B /* HeroListRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListRootViewController.swift; sourceTree = "<group>"; };
 		216208C3196ABC9A006C8916 /* HeroListTableBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListTableBehaviour.swift; sourceTree = "<group>"; };
+		216208C5196AE7E8006C8916 /* HeroListSearchBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListSearchBehaviour.swift; sourceTree = "<group>"; };
 		216CF8571944E75D00E92CF2 /* MarvelComics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelComics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		216CF85B1944E75D00E92CF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		216CF85C1944E75D00E92CF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				216208C3196ABC9A006C8916 /* HeroListTableBehaviour.swift */,
+				216208C5196AE7E8006C8916 /* HeroListSearchBehaviour.swift */,
+				2111515D1981309A002452F9 /* PaginationBehaviour.swift */,
 			);
 			name = Behaviours;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				210E80B8194613DB00CBC4EC /* NSString+Marvel.m in Sources */,
+				2111515E1981309A002452F9 /* PaginationBehaviour.swift in Sources */,
 				21D94F971948DCB4005B45D2 /* UIStoryboard+Utility.swift in Sources */,
 				218A83C419474A670086CFE4 /* ArrayDataSource.swift in Sources */,
 				21EA3783194CB82100AFDAC0 /* RefreshControll.swift in Sources */,
@@ -441,6 +448,7 @@
 				2144C9BD19522604002CFB8B /* HeroListRootViewController.swift in Sources */,
 				210E80BC19461FD600CBC4EC /* Hero+Server.swift in Sources */,
 				216CF8601944E75D00E92CF2 /* MarvelComics.xcdatamodeld in Sources */,
+				216208C6196AE7E8006C8916 /* HeroListSearchBehaviour.swift in Sources */,
 				216CF85D1944E75D00E92CF2 /* AppDelegate.swift in Sources */,
 				21EA3787194CE9D700AFDAC0 /* Decorator.swift in Sources */,
 				21F7C7BA1959888C00B86F1B /* SlideViewController.swift in Sources */,

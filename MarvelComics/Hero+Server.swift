@@ -10,7 +10,7 @@ import Foundation
 
 extension Hero {
     
-    class func getHeroesList(limit:String = "20", offset:String!,searchFragment:String?, callback:((heroes:Hero[]?,error:NSError?) -> ())?){
+    class func getHeroesList(limit:String = "50", offset:String!,searchFragment:String?, callback:((heroes:Hero[]?,error:NSError?) -> ())?){
         
         var params:Dictionary<String,String> = [paramLimit:limit, paramOffset: offset];
         var herroes:Hero[]

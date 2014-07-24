@@ -24,10 +24,12 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     var loadingView:UIVisualEffectView? = nil
     var tableBehaviour:HeroListTableBehaviour? = nil
     
+    //Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self._registerNorifications()
         self._setupDataSource()
         self._setupTableBehaviour()
         self._loadDataForOffset("0", searchString: nil)
@@ -44,12 +46,31 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
         self.tableBehaviour!.shouldParalax = true
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
+    
+    //Notifications
+    
+    func _didSlideOut(){
+        self.view.userInteractionEnabled = false
+    }
+    
+    func _didSlideBack(){
+        self.view.userInteractionEnabled = true
+    }
+    
+    //halpers
+    
     func loadData(){
         self.refreshControl.beginRefreshing()
         self._loadDataForOffset("\(self.arrayDataSource?.items?.count)", searchString: nil)
     }
     
-    //halpers
+    func _registerNorifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("_didSlideOut"), name: SlideViewControllerDidSlideOutNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("_didSlideBack"), name: SlideViewControllerDidSlideBackNotification, object: nil);
+    }
     
     func _setupRefreshControll(){
         
@@ -68,7 +89,7 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func _setupTableBehaviour(){
-        self.tableBehaviour = HeroListTableBehaviour(targetTableView: self.tableView, targetController: self)
+        self.tableBehaviour = HeroListTableBehaviour(targetTableView: self.tableView, targetController: self, arrayDataSource: self.arrayDataSource);
     }
     
     func _updateDataSourceWith(heroes:Hero[]?) {
@@ -92,7 +113,7 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
 
     func _loadDataForOffset(offset:String!, searchString:String?){
         
-        Hero.getHeroesList(limit: "30", offset: "0",searchFragment:searchString, callback: {(heroes: Hero[]?, error: NSError?) in
+        Hero.getHeroesList(offset: "0",searchFragment:searchString, callback: {(heroes: Hero[]?, error: NSError?) in
             if self.refreshControl?.refreshing {
                 self.refreshControl.endRefreshing()
             }

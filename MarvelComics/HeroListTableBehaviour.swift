@@ -16,12 +16,15 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
          var scrollDirection:Bool = true
          var previouseOffSetY:CGFloat = 0
          var shouldParalax:Bool = false
+         var arrayDataSource:ArrayDataSource? = nil;
     
-    init(targetTableView:UITableView, targetController:UIViewController){
+    init(targetTableView:UITableView, targetController:UIViewController, arrayDataSource:ArrayDataSource?){
         super.init()
+        
         self.targetTableView = targetTableView
         self.targetTableView!.delegate = self
         self.targetController = targetController
+        self.arrayDataSource = arrayDataSource;
     }
     
     //public
@@ -84,4 +87,11 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
         }
         
     }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: CMutablePointer<CGPoint>){
+        if (velocity.y > 0){
+            
+        }
+    }
+    
 }

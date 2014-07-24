@@ -9,6 +9,8 @@
 import UIKit
 
 let SlideViewControllerShouldSlideNotification:String = "SlideViewControllerShouldSlideNotification"
+let SlideViewControllerDidSlideOutNotification:String = "SlideViewControllerDidSlideOutNotification"
+let SlideViewControllerDidSlideBackNotification:String = "SlideViewControllerDidSlideBackNotification"
 
 class SlideViewController: UIViewController, UITableViewDataSource {
 
@@ -88,10 +90,11 @@ class SlideViewController: UIViewController, UITableViewDataSource {
             }
             
             self.containerView.center.x -= self.initialPosition - touchPosition.x
-            println("Origin = \(NSStringFromCGPoint(self.containerView.frame.origin))")
         }
         
         let scaleFactor:CGFloat = (self.view.frame.width * 2 - self.containerView.frame.origin.x) / (self.view.frame.width * 2)
+
+        self.tableView.transform = CGAffineTransformMakeScale( 1.5 - scaleFactor, 1.5 - scaleFactor);
         self.containerView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
         self.initialPosition = touchPosition.x
     }
@@ -100,11 +103,12 @@ class SlideViewController: UIViewController, UITableViewDataSource {
         UIView.animateWithDuration(0.3, animations: {
             
             self.didSlided = true
-            
             self.containerView.transform = CGAffineTransformMakeScale(0.5, 0.5)
             self.containerView.center.x = self.view.center.x + self.view.frame.size.width * 0.6
-            
-            })
+            self.tableView.transform = CGAffineTransformMakeScale(1, 1)
+            }, completion: { (completion:Bool) in
+                NSNotificationCenter.defaultCenter().postNotificationName(SlideViewControllerDidSlideOutNotification, object: nil)
+            });
     }
     
     func slideBack() {
@@ -117,7 +121,9 @@ class SlideViewController: UIViewController, UITableViewDataSource {
             self.containerView.transform = CGAffineTransformMakeScale(1, 1)
             self.containerView.center = CGPointMake(self.view.center.x
                 , self.view.center.y)
-            
+            self.tableView.transform = CGAffineTransformMakeScale(0.5, 0.5)
+            }, completion: { (completion:Bool) in
+                NSNotificationCenter.defaultCenter().postNotificationName(SlideViewControllerDidSlideBackNotification, object: nil)
             })
     }
     
