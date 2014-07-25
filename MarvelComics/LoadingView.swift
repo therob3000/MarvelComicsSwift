@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 
 
-func rotationWithPerspective(perspective:Float, angle:Float, x:Float, y:Float, z:Float) -> CATransform3D {
+func rotationWithPerspective(perspective:CGFloat, angle:CGFloat, x:CGFloat, y:CGFloat, z:CGFloat) -> CATransform3D {
     var transform:CATransform3D = CATransform3DIdentity;
     transform.m34 = perspective
     
@@ -64,7 +64,7 @@ class LoadingView: UIView {
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         ]
         
-        var perspective:Float = 1.0/120.0;
+        var perspective:CGFloat = 1.0/120.0;
         
         animation.values = [
             NSValue(CATransform3D:CATransform3DScale(rotationWithPerspective(perspective, 3.14, 0, 0, 0), 0.5, 0.5, 0.5)),

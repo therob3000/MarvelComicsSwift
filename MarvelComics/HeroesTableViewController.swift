@@ -64,7 +64,7 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     
     func loadData(){
         self.refreshControl.beginRefreshing()
-        self._loadDataForOffset("\(self.arrayDataSource?.items?.count)", searchString: nil)
+        self._loadDataForOffset("\(self.arrayDataSource!.items.count)", searchString: nil)
     }
     
     func _registerNorifications(){
@@ -80,7 +80,7 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func _setupDataSource(){
-        self.arrayDataSource = ArrayDataSource(items: self.heroes, cellID: "HeroListCell", configureCellBlock: {(cell:UITableViewCell!, item:AnyObject!) in
+        self.arrayDataSource = ArrayDataSource(cellID: "HeroListCell", configureCellBlock: {(cell:UITableViewCell!, item:AnyObject!) in
             
             (cell as HeroListCell).configCellWith(item as Hero)
             
@@ -102,11 +102,11 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
         
         if self.isSearching {
             self.searchHeroes = heroes
-            self.arrayDataSource!.items = self.searchHeroes
+            self.arrayDataSource!.items = self.searchHeroes!
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
         }else{
             self.heroes = heroes
-            self.arrayDataSource!.items = self.heroes;
+            self.arrayDataSource!.items = self.heroes!;
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
         }
     }

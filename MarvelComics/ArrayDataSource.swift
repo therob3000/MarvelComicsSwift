@@ -10,14 +10,13 @@ import UIKit
 
 class ArrayDataSource: NSObject, UITableViewDataSource {
     
-    var items  : AnyObject[]? = nil
+    var items  : AnyObject[] = []
     var cellID : String = ""
     var configureCellBlock:(cell:UITableViewCell!, item:AnyObject!) -> Void
     
-    init(items:AnyObject[]!, cellID:String!, configureCellBlock:(cell:UITableViewCell!, item:AnyObject!) -> () ){
+    init(cellID:String!, configureCellBlock:(cell:UITableViewCell!, item:AnyObject!) -> () ){
         
         self.cellID = cellID
-        self.items  = items
         self.configureCellBlock = configureCellBlock
         
         super.init()
@@ -25,17 +24,17 @@ class ArrayDataSource: NSObject, UITableViewDataSource {
     }
     
     func itemAt(indexPath:NSIndexPath!) -> AnyObject?{
-        return self.items?[indexPath.row]
+        return self.items[indexPath.row]
+    }
+    
+    func addItems(items:AnyObject[]){
+        self.items += items
     }
     
     //tableView DataSource
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        if items {
-            return items!.count
-        }else{
-            return 0
-        }
+        return self.items.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{

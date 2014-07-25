@@ -179,9 +179,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mur-mr-OJp">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mur-mr-OJp">
+                                <rect key="frame" x="0.0" y="30" width="480" height="450"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="450" id="Rjr-H9-WkZ"/>
+                                </constraints>
                                 <sections/>
                                 <connections>
                                     <outlet property="dataSource" destination="dYu-Kb-Fdb" id="gdy-IU-kI7"/>
@@ -198,9 +201,9 @@
                         <constraints>
                             <constraint firstItem="05N-fo-AED" firstAttribute="top" secondItem="ahd-YT-kK8" secondAttribute="bottom" constant="-20" id="4VF-sx-Opa"/>
                             <constraint firstAttribute="trailing" secondItem="05N-fo-AED" secondAttribute="trailing" id="6gC-2B-vSj"/>
-                            <constraint firstItem="Z6W-Di-ySO" firstAttribute="top" secondItem="Mur-mr-OJp" secondAttribute="bottom" id="OXH-Gh-eKE"/>
+                            <constraint firstAttribute="centerX" secondItem="Mur-mr-OJp" secondAttribute="centerX" id="Abs-gT-8MK"/>
+                            <constraint firstAttribute="centerY" secondItem="Mur-mr-OJp" secondAttribute="centerY" constant="-15" id="QpE-Vp-cif"/>
                             <constraint firstItem="05N-fo-AED" firstAttribute="leading" secondItem="DYf-Jd-djK" secondAttribute="leading" id="UFW-lF-LXx"/>
-                            <constraint firstItem="Mur-mr-OJp" firstAttribute="top" secondItem="ahd-YT-kK8" secondAttribute="bottom" constant="-20" id="hSl-Ii-h2M"/>
                             <constraint firstItem="Z6W-Di-ySO" firstAttribute="top" secondItem="05N-fo-AED" secondAttribute="bottom" id="whg-sy-6Qo"/>
                             <constraint firstItem="Mur-mr-OJp" firstAttribute="leading" secondItem="DYf-Jd-djK" secondAttribute="leading" id="y5a-WO-Edu"/>
                             <constraint firstAttribute="trailing" secondItem="Mur-mr-OJp" secondAttribute="trailing" id="zZt-jg-hrg"/>

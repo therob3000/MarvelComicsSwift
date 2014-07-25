@@ -24,12 +24,16 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self._configTableView()
         self._registrNotifications()
         self._registrGestureRecognizer()
-        self.tableView.contentInset = UIEdgeInsetsMake((self.view.frame.size.height - 400) / 2, 0, 0, 0)
     }
     
     //Private
+    
+    func _configTableView(){
+        self.tableView.transform = CGAffineTransformMakeScale(0.5, 0.5)
+    }
     
     func _registrNotifications() {
         

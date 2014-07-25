@@ -8,6 +8,8 @@
 
 import Foundation
 
+let kHeroListDefaultServerLimite = 50
+
 extension Hero {
     
     class func getHeroesList(limit:String = "50", offset:String!,searchFragment:String?, callback:((heroes:Hero[]?,error:NSError?) -> ())?){
@@ -19,12 +21,12 @@ extension Hero {
             params:searchFragment ?
                 [
                     paramLimit     : limit,
-                    paramOffset    : "0",
+                    paramOffset    : offset,
                     paramSearchByName : searchFragment!
                 ]:
                 [
                     paramLimit     : limit,
-                    paramOffset    : "0",
+                    paramOffset    : offset,
                 ],
             succes: {(operation:AFHTTPRequestOperation!,responsObj:AnyObject!) in
                 

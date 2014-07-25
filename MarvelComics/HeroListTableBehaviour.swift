@@ -12,19 +12,23 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
    
     weak var targetController:UIViewController?
     weak var targetTableView:UITableView?
+    weak var arrayDataSource:ArrayDataSource?;
+    
          var previousIndexPath:NSIndexPath?
          var scrollDirection:Bool = true
          var previouseOffSetY:CGFloat = 0
          var shouldParalax:Bool = false
-         var arrayDataSource:ArrayDataSource? = nil;
+         let pagination:PaginationBehaviour?
     
-    init(targetTableView:UITableView, targetController:UIViewController, arrayDataSource:ArrayDataSource?){
+    init(targetTableView:UITableView, targetController:UIViewController, arrayDataSource:ArrayDataSource!){
         super.init()
         
         self.targetTableView = targetTableView
         self.targetTableView!.delegate = self
         self.targetController = targetController
         self.arrayDataSource = arrayDataSource;
+        self.pagination = PaginationBehaviour(tableView: targetTableView, arrayDataSource: arrayDataSource)
+        
     }
     
     //public
@@ -73,7 +77,7 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
     func scrollViewDidScroll(tableView: UITableView!){
         
         let contentOffset = tableView.contentOffset.y
-        let delta = (self.previouseOffSetY - contentOffset) / heroListParalaxRatio
+        let delta:CGFloat = (self.previouseOffSetY - contentOffset) / heroListParalaxRatio
         
         self.previouseOffSetY = contentOffset
         self.scrollDirection = delta > 0
@@ -82,7 +86,7 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
             for cell : AnyObject in tableView.visibleCells() {
                 let heroCell:HeroListCell = cell as HeroListCell
                 
-                heroCell.paralaxScrollingForDeleta(fabsf(CGFloat(delta)), scrollDirection: self.scrollDirection)
+                heroCell.paralaxScrollingForDeleta(CGFloat(fabsf(CFloat(delta))), scrollDirection: self.scrollDirection)
             }
         }
         
@@ -90,7 +94,7 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
     
     func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: CMutablePointer<CGPoint>){
         if (velocity.y > 0){
-            
+            self.pagination?.performPaginationIfShouldFor(velocity)
         }
     }
     
