@@ -39,7 +39,7 @@ class PaginationBehaviour: NSObject {
     func _numberOfSeenCells() -> NSInteger {
         
         var numberOfSeenCells:NSInteger = 0
-        let indexPathes:AnyObject[]! = self.tableView?.indexPathsForVisibleRows();
+        let indexPathes:[AnyObject]! = self.tableView?.indexPathsForVisibleRows();
         let lastIndexPath:NSIndexPath? = indexPathes.isEmpty ? nil : indexPathes![indexPathes.count - 1] as? NSIndexPath
         
         
@@ -58,13 +58,13 @@ class PaginationBehaviour: NSObject {
         
         self.isRequested = true
         
-        Hero.getHeroesList(offset: offset, searchFragment: nil, callback: {(heroes: Hero[]?, error: NSError?) in
+        Hero.getHeroesList(offset: offset, searchFragment: nil, callback: {(heroes: [Hero]?, error: NSError?) in
             self.isRequested = false
             if heroes {
                 let previouseSize = self.arrayDataSource?.items.count
                 self.arrayDataSource?.addItems(heroes!)
                 
-                var indexPaths:AnyObject[] = []
+                var indexPaths:[AnyObject] = []
                 
                 for var index = 0; index < heroes?.count; ++index {
                     indexPaths.append(NSIndexPath(forRow: index + previouseSize!, inSection: 0))

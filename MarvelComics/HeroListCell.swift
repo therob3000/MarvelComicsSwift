@@ -13,22 +13,22 @@ let heroListCellMaxParalaxOffset:CGFloat = 50.0
 class HeroListCell: UITableViewCell {
     
     
-    @IBOutlet var heroImageView: UIImageView
-    @IBOutlet var blurConteinerView: UIView
-    @IBOutlet var heroNameLabel: UILabel
-    @IBOutlet var scrollView: UIScrollView
+    @IBOutlet var heroImageView: UIImageView?
+    @IBOutlet var blurConteinerView: UIView?
+    @IBOutlet var heroNameLabel: UILabel?
+    @IBOutlet var scrollView: UIScrollView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.scrollView.scrollsToTop = false
+        self.scrollView!.scrollsToTop = false
         self._createBlurView()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.heroNameLabel.text  = ""
-        self.heroImageView.image = UIImage(named: "hero_placeholder")
+        self.heroNameLabel!.text  = ""
+        self.heroImageView!.image = UIImage(named: "hero_placeholder")
     }
     
 }
@@ -38,7 +38,7 @@ extension HeroListCell {
     
     func configCellWith(hero:Hero!){
         self.setHeroImageWith(hero.thumbnail?)
-        self.heroNameLabel.text = hero.name
+        self.heroNameLabel!.text = hero.name
     }
     
     func setHeroImageWith(thumbnail:Thumbnail?){
@@ -50,29 +50,29 @@ extension HeroListCell {
             
             request.addValue("image/*", forHTTPHeaderField: "Accept")
             
-            self.heroImageView.setImageWithURLRequest(request, placeholderImage: nil,
+            self.heroImageView!.setImageWithURLRequest(request, placeholderImage: nil,
                 success: {[weak self] (request: NSURLRequest!,response: NSHTTPURLResponse!,image: UIImage!)  in
                     self!.heroImageView!.image = image
                 },
                 failure:nil)
         }else{
-            self.heroImageView.image = UIImage(named: "hero_placeholder")
+            self.heroImageView!.image = UIImage(named: "hero_placeholder")
         }
     }
     
     func paralaxScrollingForDeleta(delta:CGFloat, scrollDirection:Bool){
         
         if scrollDirection {
-            if self.scrollView.contentOffset.y + delta > heroListCellMaxParalaxOffset {
-                self.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
+            if self.scrollView!.contentOffset.y + delta > heroListCellMaxParalaxOffset {
+                self.scrollView!.contentOffset.y = heroListCellMaxParalaxOffset
             } else {
-                self.scrollView.contentOffset.y += delta
+                self.scrollView!.contentOffset.y += delta
             }
         } else {
-            if self.scrollView.contentOffset.y - delta < -heroListCellMaxParalaxOffset {
-                self.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
+            if self.scrollView!.contentOffset.y - delta < -heroListCellMaxParalaxOffset {
+                self.scrollView!.contentOffset.y = -heroListCellMaxParalaxOffset
             } else {
-                self.scrollView.contentOffset.y -= delta
+                self.scrollView!.contentOffset.y -= delta
             }
         }
 
@@ -82,10 +82,10 @@ extension HeroListCell {
         
         let blurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         
-        blurView.frame = self.blurConteinerView.bounds
+        blurView.frame = self.blurConteinerView!.bounds
         blurView.clipsToBounds = true
         
-        blurConteinerView.insertSubview(blurView, belowSubview: self.heroNameLabel)
+        blurConteinerView!.insertSubview(blurView, belowSubview: self.heroNameLabel)
     }
     
 }

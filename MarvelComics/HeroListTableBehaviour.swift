@@ -64,9 +64,9 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
         var heroCell:HeroListCell = cell as HeroListCell
         
         if self.scrollDirection {
-            heroCell.scrollView.contentOffset.y = -heroListCellMaxParalaxOffset
+            heroCell.scrollView!.contentOffset.y = -heroListCellMaxParalaxOffset
         }else{
-            heroCell.scrollView.contentOffset.y = heroListCellMaxParalaxOffset
+            heroCell.scrollView!.contentOffset.y = heroListCellMaxParalaxOffset
         }
         
     }
@@ -92,7 +92,7 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
         
     }
     
-    func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: CMutablePointer<CGPoint>){
+    func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: UnsafePointer<CGPoint>){
         if (velocity.y > 0){
             self.pagination?.performPaginationIfShouldFor(velocity)
         }

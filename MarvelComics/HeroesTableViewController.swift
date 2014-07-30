@@ -15,8 +15,8 @@ let heroListSelectionAnimationDuration:NSTimeInterval = 0.3
 
 class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     
-    var heroes:Hero[]? = nil
-    var searchHeroes:Hero[]? = nil
+    var heroes:[Hero]? = nil
+    var searchHeroes:[Hero]? = nil
     var arrayDataSource:ArrayDataSource?
     var previousIndexPath:NSIndexPath? = nil
     var isSearching:Bool = false
@@ -92,9 +92,9 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
         self.tableBehaviour = HeroListTableBehaviour(targetTableView: self.tableView, targetController: self, arrayDataSource: self.arrayDataSource);
     }
     
-    func _updateDataSourceWith(heroes:Hero[]?) {
+    func _updateDataSourceWith(heroes:[Hero]?) {
         
-        var indexPaths:NSIndexPath[] = []
+        var indexPaths:[NSIndexPath] = []
         
         for var index = 0; index < heroes?.count; ++index {
             indexPaths += NSIndexPath(forRow: index, inSection: 0)
@@ -113,7 +113,7 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
 
     func _loadDataForOffset(offset:String!, searchString:String?){
         
-        Hero.getHeroesList(offset: "0",searchFragment:searchString, callback: {(heroes: Hero[]?, error: NSError?) in
+        Hero.getHeroesList(offset: "0",searchFragment:searchString, callback: {(heroes: [Hero]?, error: NSError?) in
             if self.refreshControl?.refreshing {
                 self.refreshControl.endRefreshing()
             }
@@ -134,7 +134,7 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(searchBar: UISearchBar!, textDidChange searchText: String!){
-        let count:Int = searchBar.text.utf16count
+        let count:Int = searchBar.text.utf16Count
         self._loadDataForOffset("0", searchString: count > 0 ? searchBar.text : nil )
     }
     

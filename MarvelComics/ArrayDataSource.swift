@@ -10,7 +10,7 @@ import UIKit
 
 class ArrayDataSource: NSObject, UITableViewDataSource {
     
-    var items  : AnyObject[] = []
+    var items  : [AnyObject] = []
     var cellID : String = ""
     var configureCellBlock:(cell:UITableViewCell!, item:AnyObject!) -> Void
     
@@ -27,7 +27,7 @@ class ArrayDataSource: NSObject, UITableViewDataSource {
         return self.items[indexPath.row]
     }
     
-    func addItems(items:AnyObject[]){
+    func addItems(items:[AnyObject]){
         self.items += items
     }
     
