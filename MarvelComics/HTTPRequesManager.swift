@@ -43,12 +43,12 @@ class HTTPRequesManager: AFHTTPRequestOperationManager {
         dispatch_once(&onceToken,{
             instance = HTTPRequesManager(baseURL: NSURL(string: "http://gateway.marvel.com/v1/public"))
             instance!.dateFormater = NSDateFormatter()
-            })
+        })
 
         return instance!
     }
 
-    func dataWith(methode:HTTPRequesManagerHTTPMethodType? = HTTPRequesManagerHTTPMethodType.GET, urlString:String!, var params:Dictionary<String,String>?, succes:((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?){
+    func dataWith(methodeType:HTTPRequesManagerHTTPMethodType = .GET, urlString:String!, var params:Dictionary<String,String>?, succes:((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?){
         
         var formatter:NSDateFormatter  = self.dateFormater!;
         formatter.dateFormat = "yyyyMMddHHmmss"
@@ -69,7 +69,7 @@ class HTTPRequesManager: AFHTTPRequestOperationManager {
                         ]
         }
         
-        switch(methode!){
+        switch(methodeType){
             
         case .GET:
             self.GET(urlString, parameters: newParams, success: succes, failure: failure)

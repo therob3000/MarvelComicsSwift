@@ -41,41 +41,61 @@ class LoadingView: UIView {
         self.layer.timeOffset = pausedTime
     }
     
-    func _configLayerWith(image:UIImage?){
+    private func _configLayerWith(image:UIImage?){
         
         let layer:CALayer = CALayer()
-        layer.contents = image?.CGImage
+        //layer.contents = image?.CGImage
         layer.frame = CGRectInset(self.bounds, 1.0, 1.0);
         layer.shouldRasterize = true
         layer.masksToBounds = true
         self.layer.addSublayer(layer)
-        self._configAnimationFor(layer)
+        self._configAnimation()
     }
     
-    func _configAnimationFor(layer:CALayer){
-        let animation:CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "transform")
-        animation.removedOnCompletion = false
-        animation.repeatCount = HUGE
-        animation.duration = 1.2
+    private func _configAnimation() {
         
-        animation.timingFunctions = [
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        ]
+        let beginTime:CFTimeInterval = CACurrentMediaTime() + 1.2
+        let barWidth = CGRectGetWidth(self.bounds) / 5.0;
         
-        var perspective:CGFloat = 1.0/120.0;
-        
-        animation.values = [
-            NSValue(CATransform3D:CATransform3DScale(rotationWithPerspective(perspective, 3.14, 0, 0, 0), 0.5, 0.5, 0.5)),
-            NSValue(CATransform3D:CATransform3DScale(rotationWithPerspective(perspective, 3.14, 0, 1, 0), 1, 1, 1)),
-            NSValue(CATransform3D:CATransform3DScale(rotationWithPerspective(perspective, 3.14, 0, 0, 1), 0.5, 0.5, 0.5))
-        ]
-        
-        layer.addAnimation(animation, forKey: "MarvelComics-Loading")
+        for  i in 0...4 {
+            
+            let layer = CALayer()
+            layer.backgroundColor = UIColor.whiteColor().CGColor
+            layer.frame = CGRectMake(barWidth * CGFloat(i), 0.0, barWidth - 3.0, CGRectGetHeight(self.bounds));
+            layer.cornerRadius = layer.frame.width / 2
+            layer.transform = CATransform3DMakeScale(1.0, 0.3, 0.0);
+            
+            let anim = CAKeyframeAnimation(keyPath:"transform");
+            
+            anim.removedOnCompletion = false;
+            
+            anim.beginTime = beginTime - (1.2 - (0.1 * CFTimeInterval(i)));
+            anim.duration = 1.2;
+            anim.repeatCount = HUGE;
+            
+            anim.keyTimes = [0.0, 0.2, 0.4, 1.0];
+            
+            anim.timingFunctions = [
+                CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
+                CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
+                CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
+                CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            ]
+            
+            anim.values = [
+                NSValue(CATransform3D: CATransform3DMakeScale(1.0, 0.4, 0.0)),
+                NSValue(CATransform3D: CATransform3DMakeScale(1.0, 1.0, 0.0)),
+                NSValue(CATransform3D: CATransform3DMakeScale(1.0, 0.4, 0.0)),
+                NSValue(CATransform3D: CATransform3DMakeScale(1.0, 0.4, 0.0))
+            ]
+            
+            
+            self.layer.addSublayer(layer);
+            layer.addAnimation(anim, forKey: "MarvelComics-Loading");
+
+        }
         
         self.stopAnimation()
     }
-
 
 }

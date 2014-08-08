@@ -24,30 +24,30 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self._configTableView()
-        self._registrNotifications()
-        self._registrGestureRecognizer()
+        self.__configTableView()
+        self.__registrNotifications()
+        self.__registrGestureRecognizer()
     }
     
     //Private
     
-    func _configTableView(){
+    private func __configTableView(){
         self.tableView!.transform = CGAffineTransformMakeScale(0.5, 0.5)
     }
     
-    func _registrNotifications() {
+    private func __registrNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("slide"), name: SlideViewControllerShouldSlideNotification, object: nil)
         
     }
     
-    func _registrGestureRecognizer() {
+    private func __registrGestureRecognizer() {
         self.gesureRecongniser = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
         
         self.containerView!.addGestureRecognizer(self.gesureRecongniser)
     }
     
-    func handlePan(sender:UIPanGestureRecognizer) {
+    private func handlePan(sender:UIPanGestureRecognizer) {
         
         let velocity:CGPoint = sender.velocityInView(self.view)
         
@@ -72,7 +72,7 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     
     //sliding methods
     
-    func slide() {
+    private func slide() {
         
         if self.didSlided {
             self.slideBack()
@@ -82,7 +82,7 @@ class SlideViewController: UIViewController, UITableViewDataSource {
         
     }
     
-    func slideForTouchPosition(touchPosition:CGPoint, velocity:CGPoint) {
+    private func slideForTouchPosition(touchPosition:CGPoint, velocity:CGPoint) {
 
         if velocity.x > 0 {
             self.containerView!.center.x += touchPosition.x - self.initialPosition
@@ -103,8 +103,8 @@ class SlideViewController: UIViewController, UITableViewDataSource {
         self.initialPosition = touchPosition.x
     }
     
-    func slideOut() {
-        UIView.animateWithDuration(0.3, animations: {
+    private func slideOut() {
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: nil, animations: {
             
             self.didSlided = true
             self.containerView!.transform = CGAffineTransformMakeScale(0.5, 0.5)
@@ -115,19 +115,20 @@ class SlideViewController: UIViewController, UITableViewDataSource {
             });
     }
     
-    func slideBack() {
+    private func slideBack() {
         
         self.didSlided = false
-        
-
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: nil, animations: {
+            
             
             self.containerView!.transform = CGAffineTransformMakeScale(1, 1)
             self.containerView!.center = CGPointMake(self.view.center.x
                 , self.view.center.y)
             self.tableView!.transform = CGAffineTransformMakeScale(0.5, 0.5)
-            }, completion: { (completion:Bool) in
+            
+            }, completion: {( completion:Bool) in
                 NSNotificationCenter.defaultCenter().postNotificationName(SlideViewControllerDidSlideBackNotification, object: nil)
+                
             })
     }
     

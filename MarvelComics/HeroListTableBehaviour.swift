@@ -10,25 +10,32 @@ import UIKit
 
 class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegate {
    
-    weak var targetController:UIViewController?
-    weak var targetTableView:UITableView?
-    weak var arrayDataSource:ArrayDataSource?;
+    //public
+    var shouldParalax:Bool = false
     
-         var previousIndexPath:NSIndexPath?
-         var scrollDirection:Bool = true
-         var previouseOffSetY:CGFloat = 0
-         var shouldParalax:Bool = false
-         let pagination:PaginationBehaviour?
+    //private
     
-    init(targetTableView:UITableView, targetController:UIViewController, arrayDataSource:ArrayDataSource!){
+    weak private var targetController:UITableViewController?
+    weak private var targetTableView:UITableView?
+    
+         private var arrayDataSource:ArrayDataSource?;
+         private var previousIndexPath:NSIndexPath?
+         private var scrollDirection:Bool = true
+         private var previouseOffSetY:CGFloat = 0
+         private let pagination:PaginationBehaviour?
+         private var isSearching:Bool = false
+    
+    init(targetController:UITableViewController){
         super.init()
         
-        self.targetTableView = targetTableView
+        self.targetTableView = targetController.tableView
         self.targetTableView!.delegate = self
         self.targetController = targetController
-        self.arrayDataSource = arrayDataSource;
-        self.pagination = PaginationBehaviour(tableView: targetTableView, arrayDataSource: arrayDataSource)
         
+        self.__setupDataSource()
+        self.__setupRefreshControll()
+        
+        self.pagination = PaginationBehaviour(tableView: targetTableView, arrayDataSource: arrayDataSource)
     }
     
     //public
@@ -41,6 +48,64 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
                 cell!.transform = CGAffineTransformMakeScale(1, 1)
                 })
         }
+    }
+    
+    func loadDataFor(offset:String! = "0", searchString:String? = nil){
+        
+        Hero.getHeroesList(offset: "0",searchFragment:searchString, callback: {(heroes: [Hero]?, error: NSError?) in
+            if self.targetController?.refreshControl?.refreshing {
+                self.targetController?.refreshControl.endRefreshing()
+            }
+            if error {
+                println("Eroror \(error?.localizedDescription)")
+            }else{
+                self._updateDataSourceWith(heroes!)
+            }
+            
+        })
+    }
+    
+    func loadData(){
+        self.targetController?.refreshControl.beginRefreshing()
+        self.loadDataFor()
+    }
+    
+    //private 
+    
+    
+    private func __updateDataSourceWith(heroes:[Hero]) {
+        
+        var indexPaths:[NSIndexPath] = []
+        
+        for var index = 0; index < heroes.count; ++index {
+            indexPaths += NSIndexPath(forRow: index, inSection: 0)
+        }
+        //
+        //        if self.isSearching {
+        //            self.searchHeroes = heroes
+        //            self.arrayDataSource!.items = self.searchHeroes!
+        //            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+        //        }else{
+        //self.heroes = heroes
+        if self.arrayDataSource {
+            self.arrayDataSource!.addItems(heroes);
+            self.targetTableView?.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+        //        }
+    }
+    
+    private func __setupDataSource(){
+        self.arrayDataSource = ArrayDataSource(cellID: "HeroListCell", configureCellBlock: __configCell)
+        self.targetTableView!.dataSource = self.arrayDataSource
+    }
+    
+    private func __setupRefreshControll(){
+        self.targetController!.refreshControl = RefreshControl()
+        self.targetController!.refreshControl.addTarget(self, action: Selector("loadData"), forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    private func __configCell(cell:UITableViewCell!, item:AnyObject!){
+        (cell as HeroListCell).configCellWith(item as Hero)
     }
     
     //tableViewDelegate

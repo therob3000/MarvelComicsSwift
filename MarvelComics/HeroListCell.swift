@@ -22,7 +22,7 @@ class HeroListCell: UITableViewCell {
         super.awakeFromNib()
         
         self.scrollView!.scrollsToTop = false
-        self._createBlurView()
+        self.__createBlurView()
     }
     
     override func prepareForReuse() {
@@ -37,11 +37,29 @@ class HeroListCell: UITableViewCell {
 extension HeroListCell {
     
     func configCellWith(hero:Hero!){
-        self.setHeroImageWith(hero.thumbnail?)
+        self.__setHeroImageWith(hero.thumbnail?)
         self.heroNameLabel!.text = hero.name
     }
     
-    func setHeroImageWith(thumbnail:Thumbnail?){
+    func paralaxScrollingForDeleta(delta:CGFloat, scrollDirection:Bool){
+        
+        if scrollDirection {
+            if self.scrollView!.contentOffset.y + delta > heroListCellMaxParalaxOffset {
+                self.scrollView!.contentOffset.y = heroListCellMaxParalaxOffset
+            } else {
+                self.scrollView!.contentOffset.y += delta
+            }
+        } else {
+            if self.scrollView!.contentOffset.y - delta < -heroListCellMaxParalaxOffset {
+                self.scrollView!.contentOffset.y = -heroListCellMaxParalaxOffset
+            } else {
+                self.scrollView!.contentOffset.y -= delta
+            }
+        }
+        
+    }
+    
+    private func __setHeroImageWith(thumbnail:Thumbnail?){
         
         if thumbnail{
             var stringUrl:String      = thumbnail!.path + "/standard_xlarge." + thumbnail!.imageExtension;
@@ -60,25 +78,8 @@ extension HeroListCell {
         }
     }
     
-    func paralaxScrollingForDeleta(delta:CGFloat, scrollDirection:Bool){
-        
-        if scrollDirection {
-            if self.scrollView!.contentOffset.y + delta > heroListCellMaxParalaxOffset {
-                self.scrollView!.contentOffset.y = heroListCellMaxParalaxOffset
-            } else {
-                self.scrollView!.contentOffset.y += delta
-            }
-        } else {
-            if self.scrollView!.contentOffset.y - delta < -heroListCellMaxParalaxOffset {
-                self.scrollView!.contentOffset.y = -heroListCellMaxParalaxOffset
-            } else {
-                self.scrollView!.contentOffset.y -= delta
-            }
-        }
-
-    }
     
-    func _createBlurView(){
+    private func __createBlurView(){
         
         let blurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         

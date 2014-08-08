@@ -33,13 +33,9 @@ extension Hero {
                 var responsDict : NSDictionary = responsObj as NSDictionary
                 var heroesDicts: [NSDictionary]? = responsDict.valueForKeyPath("data.results") as? [NSDictionary];
  
-                var heroes:[Hero] = []
+                var heroes:[AnyObject]? = heroesDicts?.map(self.MR_importFromObject)
                 
-                for heroDict in heroesDicts!{
-                    heroes += Hero.MR_importFromObject(heroDict) as Hero
-                }
-                
-                callback?(heroes:heroes,error:nil)
+                callback?(heroes:heroes as? [Hero],error:nil)
                 
             },
             failure:{(operation:AFHTTPRequestOperation!,error:NSError!) in
@@ -47,7 +43,5 @@ extension Hero {
                     callback!(heroes:nil,error:error)
                 }
             })
-        
-        
     }
 }
