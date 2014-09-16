@@ -33,11 +33,11 @@ class ArrayDataSource: NSObject, UITableViewDataSource {
     
     //tableView DataSource
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         let cell : AnyObject? = tableView.dequeueReusableCellWithIdentifier(self.cellID)
         var item : AnyObject? = self.itemAt(indexPath)

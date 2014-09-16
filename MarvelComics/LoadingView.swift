@@ -23,6 +23,10 @@ class LoadingView: UIView {
         super.init(frame: frame)
         self._configLayerWith(image)
     }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func startAnimation(){
         var pausedTime:CFTimeInterval = self.layer.timeOffset

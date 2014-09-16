@@ -43,7 +43,7 @@ class PaginationBehaviour: NSObject {
         let lastIndexPath:NSIndexPath? = indexPathes.isEmpty ? nil : indexPathes![indexPathes.count - 1] as? NSIndexPath
         
         
-        if lastIndexPath {
+        if (lastIndexPath != nil) {
             numberOfSeenCells = lastIndexPath!.row + 1;
         } else {
             numberOfSeenCells = self.arrayDataSource!.items.count;
@@ -60,7 +60,7 @@ class PaginationBehaviour: NSObject {
         
         Hero.getHeroesList(offset: offset, searchFragment: nil, callback: {(heroes: [Hero]?, error: NSError?) in
             self.isRequested = false
-            if heroes {
+            if (heroes != nil) {
                 let previouseSize = self.arrayDataSource?.items.count
                 self.arrayDataSource?.addItems(heroes!)
                 

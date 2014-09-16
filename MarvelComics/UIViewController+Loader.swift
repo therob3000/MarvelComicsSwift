@@ -23,7 +23,7 @@ extension UIViewController {
     
     func showLoadingView(){
         
-        if !self.blurView {
+        if !(self.blurView != nil) {
             
             var loader:LoadingView = LoadingView(frame: CGRectMake(0, 0, 40, 40), image: UIImage(named: "captainamerica"))
             self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
@@ -38,7 +38,7 @@ extension UIViewController {
             loader.center = self.blurView!.center
             loader.startAnimation()
             
-            self.view.addSubview(blurView)
+            self.view.addSubview(blurView!)
         }
         
         self.view.userInteractionEnabled = false
@@ -46,7 +46,7 @@ extension UIViewController {
     }
     
     func hideLoadingView(){
-        if self.blurView {
+        if (self.blurView != nil) {
             self.blurView!.hidden = true
             self.view.userInteractionEnabled = true
         }

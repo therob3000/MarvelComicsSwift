@@ -17,17 +17,21 @@ class RefreshControl: UIRefreshControl {
     var date:NSDate = NSDate()
     var tableView:UITableView?
     
-    init() {
+    override init() {
         super.init()
         
         self.transform = CGAffineTransformMakeScale(0.0, 0.0)
         self.loadingView = LoadingView(frame: CGRectMake(0, 0, 30, 30), image: UIImage(named: "captainamerica"))
     
         self.tintColor = UIColor.clearColor()
-        self.addSubview(self.loadingView)
+        self.addSubview(self.loadingView!)
         
         self.loadingView!.center = self.center
         self.loadingView!.startAnimation()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func willMoveToSuperview(newSuperview: UIView!) {

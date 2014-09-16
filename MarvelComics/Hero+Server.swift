@@ -14,20 +14,20 @@ extension Hero {
     
     class func getHeroesList(limit:String = "50", offset:String!,searchFragment:String?, callback:((heroes:[Hero]?,error:NSError?) -> ())?){
         
-        var params:Dictionary<String,String> = [paramLimit:limit, paramOffset: offset];
+        var params:Dictionary<String,String> = (searchFragment != nil) ?
+            [
+                paramLimit     : limit,
+                paramOffset    : offset,
+                paramSearchByName : searchFragment!
+            ]:
+            [
+                paramLimit     : limit,
+                paramOffset    : offset,
+        ];
         var herroes:[Hero]
         
         HTTPRequesManager.sharedManager().dataWith(urlString: "characters",
-            params:searchFragment ?
-                [
-                    paramLimit     : limit,
-                    paramOffset    : offset,
-                    paramSearchByName : searchFragment!
-                ]:
-                [
-                    paramLimit     : limit,
-                    paramOffset    : offset,
-                ],
+            params:params,
             succes: {(operation:AFHTTPRequestOperation!,responsObj:AnyObject!) in
                 
                 var responsDict : NSDictionary = responsObj as NSDictionary
@@ -39,7 +39,7 @@ extension Hero {
                 
             },
             failure:{(operation:AFHTTPRequestOperation!,error:NSError!) in
-                if callback {
+                if (callback != nil) {
                     callback!(heroes:nil,error:error)
                 }
             })

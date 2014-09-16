@@ -38,7 +38,7 @@ var onceToken: dispatch_once_t = 0
 class HTTPRequesManager: AFHTTPRequestOperationManager {
     var dateFormater:NSDateFormatter?
     
-    class func sharedManager() -> HTTPRequesManager!{
+    class func sharedManager() -> HTTPRequesManager{
         
         dispatch_once(&onceToken,{
             instance = HTTPRequesManager(baseURL: NSURL(string: "http://gateway.marvel.com/v1/public"))
@@ -57,7 +57,7 @@ class HTTPRequesManager: AFHTTPRequestOperationManager {
         
         var newParams:Dictionary<String, String>
         
-        if params {
+        if (params != nil) {
             newParams = params!
             newParams[paramApiKey] = MARVEL_PUBLIC_API_KEY
             newParams[paramHash] = hashString

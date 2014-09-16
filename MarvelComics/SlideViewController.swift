@@ -23,7 +23,6 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.__configTableView()
         self.__registrNotifications()
         self.__registrGestureRecognizer()
@@ -37,17 +36,17 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     
     private func __registrNotifications() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("slide"), name: SlideViewControllerShouldSlideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"slide", name: SlideViewControllerShouldSlideNotification, object: nil)
         
     }
     
     private func __registrGestureRecognizer() {
-        self.gesureRecongniser = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+        self.gesureRecongniser = UIPanGestureRecognizer(target: self, action: "handlePan:")
         
-        self.containerView!.addGestureRecognizer(self.gesureRecongniser)
+        self.containerView!.addGestureRecognizer(self.gesureRecongniser!)
     }
     
-    private func handlePan(sender:UIPanGestureRecognizer) {
+    func handlePan(sender:UIPanGestureRecognizer) {
         
         let velocity:CGPoint = sender.velocityInView(self.view)
         
@@ -72,7 +71,7 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     
     //sliding methods
     
-    private func slide() {
+    func slide() {
         
         if self.didSlided {
             self.slideBack()
@@ -135,23 +134,23 @@ class SlideViewController: UIViewController, UITableViewDataSource {
     
     //UITableViewDataSource
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5;
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell:UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
         
-        if !cell {
+        if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
         }
         
-        cell!.backgroundColor = UIColor(red: 0, green: 122/255, blue: 255, alpha: 1)
-        cell!.textLabel.text = "Item \(indexPath.row)"
+        cell?.backgroundColor = UIColor(red: 0, green: 122/255, blue: 255, alpha: 1)
+        cell?.textLabel?.text = "Item \(indexPath.row)"
         
         
-        return cell;
+        return cell!;
     }
 
 }

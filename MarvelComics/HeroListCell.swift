@@ -61,7 +61,7 @@ extension HeroListCell {
     
     private func __setHeroImageWith(thumbnail:Thumbnail?){
         
-        if thumbnail{
+        if (thumbnail != nil){
             var stringUrl:String      = thumbnail!.path + "/standard_xlarge." + thumbnail!.imageExtension;
             var url:NSURL             = NSURL(string: stringUrl)
             var request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
@@ -86,7 +86,7 @@ extension HeroListCell {
         blurView.frame = self.blurConteinerView!.bounds
         blurView.clipsToBounds = true
         
-        blurConteinerView!.insertSubview(blurView, belowSubview: self.heroNameLabel)
+        blurConteinerView!.insertSubview(blurView, belowSubview: self.heroNameLabel!)
     }
     
 }

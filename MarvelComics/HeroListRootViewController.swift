@@ -17,7 +17,7 @@ class HeroListRootViewController: UIViewController {
         
         let blurView:UIVisualEffectView! = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blurView.frame = self.view.bounds
-        self.view.insertSubview(blurView, aboveSubview: self.imageView)
+        self.view.insertSubview(blurView, aboveSubview: self.imageView!)
     }
     @IBAction func listButtonPressed(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(SlideViewControllerShouldSlideNotification, object: nil)

@@ -41,9 +41,10 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
     //public
     
     func deselectCell(){
-        var cell:UITableViewCell? = self.targetTableView?.cellForRowAtIndexPath(self.previousIndexPath)
         
-        if cell {
+        if (self.previousIndexPath != nil) {
+            
+            var cell:UITableViewCell? = self.targetTableView?.cellForRowAtIndexPath(self.previousIndexPath!)
             UIView.animateWithDuration(0.3, animations: {
                 cell!.transform = CGAffineTransformMakeScale(1, 1)
                 })
@@ -53,20 +54,20 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
     func loadDataFor(offset:String! = "0", searchString:String? = nil){
         
         Hero.getHeroesList(offset: "0",searchFragment:searchString, callback: {(heroes: [Hero]?, error: NSError?) in
-            if self.targetController?.refreshControl?.refreshing {
-                self.targetController?.refreshControl.endRefreshing()
+            if (self.targetController?.refreshControl?.refreshing != nil) {
+                self.targetController?.refreshControl?.endRefreshing()
             }
-            if error {
+            if (error != nil) {
                 println("Eroror \(error?.localizedDescription)")
             }else{
-                self._updateDataSourceWith(heroes!)
+                self.__updateDataSourceWith(heroes!)
             }
             
         })
     }
     
     func loadData(){
-        self.targetController?.refreshControl.beginRefreshing()
+        self.targetController?.refreshControl?.beginRefreshing()
         self.loadDataFor()
     }
     
@@ -78,7 +79,7 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
         var indexPaths:[NSIndexPath] = []
         
         for var index = 0; index < heroes.count; ++index {
-            indexPaths += NSIndexPath(forRow: index, inSection: 0)
+            indexPaths.append(NSIndexPath(forRow: index, inSection: 0))
         }
         //
         //        if self.isSearching {
@@ -87,8 +88,8 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
         //            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
         //        }else{
         //self.heroes = heroes
-        if self.arrayDataSource {
-            self.arrayDataSource!.addItems(heroes);
+        if (self.arrayDataSource != nil) {
+            self.arrayDataSource?.addItems(heroes);
             self.targetTableView?.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
         }
         //        }
@@ -101,7 +102,7 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
     
     private func __setupRefreshControll(){
         self.targetController!.refreshControl = RefreshControl()
-        self.targetController!.refreshControl.addTarget(self, action: Selector("loadData"), forControlEvents: UIControlEvents.ValueChanged)
+        self.targetController!.refreshControl?.addTarget(self, action: Selector("loadData"), forControlEvents: UIControlEvents.ValueChanged)
     }
     
     private func __configCell(cell:UITableViewCell!, item:AnyObject!){
@@ -113,14 +114,18 @@ class HeroListTableBehaviour: NSObject, UITableViewDelegate, UIScrollViewDelegat
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
         var cell : UITableViewCell! = tableView.cellForRowAtIndexPath(indexPath)
-        tableView.deselectRowAtIndexPath(self.previousIndexPath?, animated: true)
+        tableView.deselectRowAtIndexPath(self.previousIndexPath!, animated: true)
         self.previousIndexPath = indexPath
         UIView.animateWithDuration(heroListSelectionAnimationDuration, animations: {
             cell.transform = CGAffineTransformMakeScale(heroListSelectionScaleFactor, heroListSelectionScaleFactor)
             }
             , completion: { (succes:Bool) in
                 let viewController:UIViewController? = UIStoryboard.viewControllerWith("HeroDetailsViewController");
-                self.targetController!.navigationController.pushViewController(viewController, animated: true)
+                
+                if let targetViewController = self.targetController {
+                    self.targetController?.navigationController?.pushViewController(viewController!, animated: true)
+                }
+                
             })
     }
     

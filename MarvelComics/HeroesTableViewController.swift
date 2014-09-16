@@ -49,19 +49,19 @@ class HeroesTableViewController: UITableViewController, UISearchBarDelegate {
     
     //Notifications
     
-    private func _didSlideOut(){
+    func didSlideOut(){
         self.view.userInteractionEnabled = false
     }
     
-    private func _didSlideBack(){
+    func didSlideBack(){
         self.view.userInteractionEnabled = true
     }
     
     //halpers
     
     private func _registerNorifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("_didSlideOut"), name: SlideViewControllerDidSlideOutNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("_didSlideBack"), name: SlideViewControllerDidSlideBackNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("didSlideOut"), name: SlideViewControllerDidSlideOutNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("didSlideBack"), name: SlideViewControllerDidSlideBackNotification, object: nil);
     }
     
     private func _setupTableBehaviour(){
